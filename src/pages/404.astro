@@ -1,0 +1,251 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Page Not Found"
+  description="The page you were looking for could not be found on sunduo.me."
+  robots="noindex,follow"
+  ogImage="/og-image-wide.png"
+  wide
+>
+  <section class="error-shell">
+    <div class="error-main">
+      <p class="error-kicker">Error 404</p>
+      <h1 class="error-title">Page not found.</h1>
+      <p class="error-status">This URL does not currently exist on sunduo.me.</p>
+      <p class="error-intro">
+        The link may be outdated, the page may have moved, or the URL may have
+        been typed incorrectly. The rest of the site is still available and the
+        main sections are only one step away.
+      </p>
+
+      <div class="button-row error-actions">
+        <a class="button" href="/">Back Home</a>
+        <a class="button button--secondary" href="/posts">Browse Posts</a>
+        <a class="button button--secondary" href="/contact">Contact</a>
+      </div>
+    </div>
+
+    <aside class="error-side">
+      <div class="error-side__top">
+        <p class="error-code">404</p>
+        <p class="error-side__eyebrow">Try This Instead</p>
+        <h2 class="error-side__title">A few good routes from here</h2>
+      </div>
+
+      <ul class="error-route-list">
+        <li>Return to the homepage for the main overview.</li>
+        <li>Open the CV page for a structured summary.</li>
+        <li>Visit Posts to read recent writing and notes.</li>
+      </ul>
+    </aside>
+  </section>
+
+  <section class="error-links">
+    <a class="error-link-card error-link-card--home" href="/">
+      <p class="error-link-card__label">Home</p>
+      <h2 class="card-title">Start from the main page</h2>
+      <p>See the overall site structure and the key links at a glance.</p>
+    </a>
+
+    <a class="error-link-card error-link-card--cv" href="/cv">
+      <p class="error-link-card__label">CV</p>
+      <h2 class="card-title">View formal background</h2>
+      <p>Go straight to education, experience, and core skills.</p>
+    </a>
+
+    <a class="error-link-card error-link-card--contact" href="/contact">
+      <p class="error-link-card__label">Contact</p>
+      <h2 class="card-title">Reach out directly</h2>
+      <p>Use the contact page if you were trying to get in touch.</p>
+    </a>
+  </section>
+</Layout>
+
+<style>
+  .error-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) 340px;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .error-main,
+  .error-side,
+  .error-link-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 32px;
+    box-shadow: var(--shadow);
+  }
+
+  .error-main {
+    padding: 2.2rem;
+    border: 1px solid rgba(146, 78, 47, 0.16);
+    background:
+      radial-gradient(circle at top right, rgba(243, 212, 188, 0.5), transparent 28%),
+      linear-gradient(145deg, rgba(255, 252, 248, 0.92), rgba(248, 240, 233, 0.96));
+  }
+
+  .error-main::after {
+    content: '';
+    position: absolute;
+    right: -2rem;
+    bottom: -2rem;
+    width: 12rem;
+    height: 12rem;
+    border-radius: 50%;
+    background: rgba(23, 50, 77, 0.05);
+    filter: blur(8px);
+  }
+
+  .error-kicker {
+    display: inline-flex;
+    margin: 0 0 1rem;
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    background: rgba(146, 78, 47, 0.1);
+    color: #924e2f;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+  }
+
+  .error-title {
+    max-width: 12ch;
+    margin-bottom: 0.8rem;
+    font-family: var(--font-serif);
+    font-size: clamp(2.35rem, 4.6vw, 3.8rem);
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+  }
+
+  .error-status {
+    display: inline-flex;
+    margin: 0 0 1rem;
+    padding: 0.55rem 0.8rem;
+    border-left: 3px solid #b15d35;
+    background: rgba(177, 93, 53, 0.08);
+    color: #7a4429;
+    font-size: 0.98rem;
+    line-height: 1.6;
+  }
+
+  .error-intro {
+    max-width: 40rem;
+    margin: 0;
+    font-size: 1.12rem;
+    line-height: 1.85;
+  }
+
+  .error-actions {
+    position: relative;
+    z-index: 1;
+  }
+
+  .error-side {
+    display: grid;
+    align-content: space-between;
+    gap: 1.5rem;
+    padding: 1.8rem;
+    border: 1px solid rgba(146, 78, 47, 0.14);
+    background:
+      radial-gradient(circle at top right, rgba(255, 255, 255, 0.42), transparent 28%),
+      linear-gradient(160deg, rgba(250, 239, 232, 0.98), rgba(247, 243, 236, 0.95));
+    color: var(--ink);
+  }
+
+  .error-code {
+    margin: 0 0 0.8rem;
+    color: #9a4f2e;
+    font-family: var(--font-serif);
+    font-size: clamp(5.5rem, 14vw, 8.5rem);
+    line-height: 0.82;
+    letter-spacing: -0.08em;
+  }
+
+  .error-side__eyebrow {
+    margin: 0 0 0.7rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.78rem;
+  }
+
+  .error-side__title {
+    font-size: 2rem;
+    line-height: 1.02;
+    color: var(--ink);
+  }
+
+  .error-route-list {
+    margin: 0;
+    padding-left: 1.1rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .error-route-list li {
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .error-links {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .error-link-card {
+    display: block;
+    padding: 1.45rem;
+    border: 1px solid var(--border);
+    text-decoration: none;
+    transition:
+      transform 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  .error-link-card:hover {
+    transform: translateY(-2px);
+  }
+
+  .error-link-card--home {
+    background: rgba(255, 255, 255, 0.78);
+  }
+
+  .error-link-card--cv {
+    background: linear-gradient(160deg, rgba(239, 243, 247, 0.94), rgba(247, 248, 250, 0.92));
+  }
+
+  .error-link-card--contact {
+    background: linear-gradient(160deg, rgba(249, 240, 233, 0.96), rgba(255, 249, 244, 0.92));
+  }
+
+  .error-link-card__label {
+    margin: 0 0 0.8rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.78rem;
+  }
+
+  @media (max-width: 900px) {
+    .error-shell,
+    .error-links {
+      grid-template-columns: 1fr;
+    }
+
+    .error-main,
+    .error-side,
+    .error-link-card {
+      border-radius: 26px;
+    }
+
+    .error-main,
+    .error-side {
+      padding: 1.5rem;
+    }
+  }
+</style>

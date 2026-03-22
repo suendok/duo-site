@@ -1,9 +1,6 @@
 ---
-import { getCollection } from 'astro:content';
+import { posts } from '../../data/posts';
 import Layout from '../../layouts/Layout.astro';
-
-const posts = await getCollection('posts');
-posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 const formatDate = (date: Date) =>
   date.toLocaleDateString('en-GB', {
@@ -11,41 +8,89 @@ const formatDate = (date: Date) =>
     month: 'long',
     day: 'numeric',
   });
+
+const [featuredPost, ...otherPosts] = posts;
 ---
 
 <Layout
   title="Posts"
-  description="Static notes and writing by Duo Sun."
+  description="Read articles and working notes by Duo Sun on economics, finance, research, technology, and writing."
   activePath="/posts"
 >
   <section class="page-header">
     <p class="eyebrow">Posts</p>
-    <h1 class="page-title page-title--compact">Writing and working notes</h1>
+    <h1 class="page-title page-title--compact">Writing, notes, and longer-form ideas</h1>
     <p class="page-lead">
-      A small collection of static Markdown posts. No CMS, no database, and no
-      server-side logic, just simple content that ships with the site.
+      A more formal article index built entirely from local mock data. It keeps
+      the site static, lets us shape the reading experience, and leaves room to
+      connect real content later without changing the presentation layer.
     </p>
   </section>
 
-  {posts.length === 0 ? (
-    <article class="surface">
-      <p class="eyebrow">No Posts Yet</p>
-      <h2 class="card-title">The structure is ready</h2>
-      <p>
-        Add Markdown files to <code>src/content/posts</code> and they will
-        appear here automatically at build time.
-      </p>
-    </article>
-  ) : (
-    <section class="post-list">
-      {posts.map((post) => (
-        <a class="surface link-card" href={`/posts/${post.id}/`}>
-          <p class="eyebrow">Post</p>
-          <h2 class="card-title">{post.data.title}</h2>
-          <p class="meta">{formatDate(post.data.date)}</p>
-          <p>{post.data.description}</p>
-        </a>
-      ))}
+  {featuredPost && (
+    <section class="section">
+      <a class="surface link-card post-card post-card--featured" href={`/posts/${featuredPost.slug}/`}>
+        <div>
+          <p class="eyebrow">Featured Article</p>
+          <h2 class="post-card__title">{featuredPost.title}</h2>
+          <p class="post-card__summary">{featuredPost.summary}</p>
+        </div>
+
+        <div class="post-card__footer">
+          <div class="post-card__meta">
+            <p class="meta">{formatDate(new Date(featuredPost.date))}</p>
+            <p class="meta">{featuredPost.readingTime}</p>
+          </div>
+
+          <ul class="tag-row" aria-label="Featured article tags">
+            {featuredPost.tags.map((tag) => (
+              <li>
+                <span class="tag-pill">{tag}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </a>
     </section>
   )}
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Archive</p>
+        <h2 class="card-title">Recent posts</h2>
+      </div>
+      <p>
+        These entries are local placeholders for now, designed to let the page
+        feel complete before any real content system is introduced.
+      </p>
+    </div>
+
+    <div class="posts-grid">
+      {otherPosts.map((post) => (
+        <a class="surface link-card post-card" href={`/posts/${post.slug}/`}>
+          <div>
+            <p class="eyebrow">Article</p>
+            <h3 class="card-title">{post.title}</h3>
+            <p class="post-card__summary">{post.summary}</p>
+          </div>
+
+          <div class="post-card__footer">
+            <div class="post-card__meta">
+              <p class="meta">{formatDate(new Date(post.date))}</p>
+              <p class="meta">{post.readingTime}</p>
+            </div>
+
+            <ul class="tag-row" aria-label={`${post.title} tags`}>
+              {post.tags.map((tag) => (
+                <li>
+                  <span class="tag-pill">{tag}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
 </Layout>

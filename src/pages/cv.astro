@@ -5,7 +5,7 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout
   title="CV"
-  description="CV and professional summary of Duo Sun."
+  description="View the CV of Duo Sun, including education, experience, core skills, and contact details."
   activePath="/cv"
 >
   <section class="page-header">
@@ -15,11 +15,21 @@ import Layout from '../layouts/Layout.astro';
       A concise professional summary designed for recruiters, collaborators, and
       academic contacts who want a quick picture of my background.
     </p>
+  </section>
 
-    <div class="button-row">
-      <a class="button" href="/contact">Contact</a>
-      <a class="button button--secondary" href="mailto:sunduowork@outlook.com">Email</a>
-    </div>
+  <section class="section cv-download-section">
+    <article class="surface">
+      <p class="eyebrow">Download</p>
+      <h2 class="card-title">Formal PDF version</h2>
+      <p>
+        Use the PDF version when you want a cleaner file for recruiters,
+        applications, referrals, or direct sharing.
+      </p>
+      <div class="button-row">
+        <a class="button" href={SITE.cvPdfPath} download>Download PDF</a>
+      </div>
+      <p class="meta">CV last updated: {SITE.cvLastUpdated}</p>
+    </article>
   </section>
 
   <section class="split">
@@ -86,8 +96,21 @@ import Layout from '../layouts/Layout.astro';
         <p class="eyebrow">Contact</p>
         <h2 class="card-title">Reach me</h2>
         <p>{SITE.email}</p>
+        <p>{SITE.phoneDisplay}</p>
         <p>{SITE.location}</p>
       </section>
     </aside>
   </section>
 </Layout>
+
+<style>
+  .cv-download-section {
+    margin-bottom: 2.4rem;
+  }
+
+  @media (max-width: 900px) {
+    .cv-download-section {
+      margin-bottom: 1.8rem;
+    }
+  }
+</style>

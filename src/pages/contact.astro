@@ -5,7 +5,7 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout
   title="Contact"
-  description="Contact details for Duo Sun."
+  description="Contact Duo Sun for academic, professional, and writing-related opportunities."
   activePath="/contact"
 >
   <section class="page-header">
@@ -27,6 +27,54 @@ import Layout from '../layouts/Layout.astro';
       </p>
       <div class="button-row">
         <a class="button" href={`mailto:${SITE.email}`}>Send Email</a>
+      </div>
+
+      <div class="contact-email-chooser">
+        <p class="contact-helper">
+          Have something other than work to discuss? Choose the topic below.
+        </p>
+
+        <label class="contact-select-label" for="contact-topic">
+          Email purpose
+        </label>
+        <select id="contact-topic" class="contact-select">
+          <option value="">Choose a topic</option>
+          <option value={SITE.studyEmail} data-label="Study">Study</option>
+          <option value={SITE.personalEmail} data-label="Personal">Personal</option>
+        </select>
+
+        <div id="contact-alt-email-box" class="contact-alt-email" hidden>
+          <p id="contact-alt-email-label" class="meta">Selected topic</p>
+          <p id="contact-alt-email-address" class="contact-alt-email__address"></p>
+          <div class="button-row">
+            <a
+              id="contact-alt-email-link"
+              class="button button--secondary"
+              href="#"
+            >
+              Open Email
+            </a>
+          </div>
+        </div>
+
+        <noscript>
+          <div class="contact-email-fallback">
+            <p class="meta">Study: {SITE.studyEmail}</p>
+            <p class="meta">Personal: {SITE.personalEmail}</p>
+          </div>
+        </noscript>
+      </div>
+    </article>
+
+    <article class="surface">
+      <p class="eyebrow">Phone</p>
+      <h2 class="card-title">{SITE.phoneDisplay}</h2>
+      <p>
+        Useful for direct contact when a faster response is needed for
+        applications, introductions, or time-sensitive conversations.
+      </p>
+      <div class="button-row">
+        <a class="button button--secondary" href={SITE.phoneHref}>Call</a>
       </div>
     </article>
 
@@ -62,3 +110,91 @@ import Layout from '../layouts/Layout.astro';
     </article>
   </section>
 </Layout>
+
+<script is:inline>
+  const contactTopic = document.getElementById('contact-topic');
+  const altEmailBox = document.getElementById('contact-alt-email-box');
+  const altEmailLabel = document.getElementById('contact-alt-email-label');
+  const altEmailAddress = document.getElementById('contact-alt-email-address');
+  const altEmailLink = document.getElementById('contact-alt-email-link');
+
+  const updateAltEmail = () => {
+    if (!(contactTopic instanceof HTMLSelectElement)) return;
+    if (!(altEmailBox instanceof HTMLElement)) return;
+    if (!(altEmailLabel instanceof HTMLElement)) return;
+    if (!(altEmailAddress instanceof HTMLElement)) return;
+    if (!(altEmailLink instanceof HTMLAnchorElement)) return;
+
+    const selectedOption = contactTopic.selectedOptions[0];
+    const email = selectedOption?.value ?? '';
+    const label = selectedOption?.dataset.label ?? '';
+
+    if (!email || !label) {
+      altEmailBox.hidden = true;
+      altEmailAddress.textContent = '';
+      altEmailLink.href = '#';
+      return;
+    }
+
+    altEmailBox.hidden = false;
+    altEmailLabel.textContent = `${label} email`;
+    altEmailAddress.textContent = email;
+    altEmailLink.href = `mailto:${email}`;
+  };
+
+  contactTopic?.addEventListener('change', updateAltEmail);
+  updateAltEmail();
+</script>
+
+<style>
+  .contact-email-chooser {
+    margin-top: 1.25rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid rgba(23, 50, 77, 0.08);
+  }
+
+  .contact-helper {
+    margin: 0 0 0.9rem;
+    color: var(--muted);
+  }
+
+  .contact-select-label {
+    display: block;
+    margin-bottom: 0.45rem;
+    color: var(--ink);
+    font-size: 0.94rem;
+    font-weight: 600;
+  }
+
+  .contact-select {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border: 1px solid rgba(23, 50, 77, 0.14);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.82);
+    color: var(--ink);
+    font: inherit;
+  }
+
+  .contact-alt-email {
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px solid rgba(23, 50, 77, 0.08);
+    border-radius: 20px;
+    background: rgba(23, 50, 77, 0.04);
+  }
+
+  .contact-alt-email__address {
+    margin: 0.2rem 0 0;
+    color: var(--ink);
+    font-size: 1.05rem;
+    line-height: 1.5;
+    word-break: break-word;
+  }
+
+  .contact-email-fallback {
+    margin-top: 1rem;
+    display: grid;
+    gap: 0.45rem;
+  }
+</style>

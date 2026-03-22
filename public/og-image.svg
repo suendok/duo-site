@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="120" y1="60" x2="1060" y2="560" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8F2EA" />
+      <stop offset="1" stop-color="#F0E8DC" />
+    </linearGradient>
+    <linearGradient id="panel" x1="350" y1="110" x2="980" y2="520" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#17324D" />
+      <stop offset="1" stop-color="#274E70" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" rx="36" fill="url(#bg)" />
+  <circle cx="147" cy="108" r="158" fill="#E5D7C2" fill-opacity="0.55" />
+  <circle cx="1080" cy="76" r="144" fill="#D6E3EE" fill-opacity="0.85" />
+  <circle cx="1094" cy="582" r="182" fill="#ECE2D4" fill-opacity="0.8" />
+
+  <rect x="74" y="74" width="1052" height="482" rx="30" fill="#FCF8F2" fill-opacity="0.88" stroke="#D8CDBE" />
+  <rect x="690" y="120" width="378" height="390" rx="28" fill="url(#panel)" />
+
+  <text x="130" y="164" fill="#17324D" font-size="24" font-family="Avenir Next, Segoe UI, Arial, sans-serif" letter-spacing="5">
+    SUNDUO.ME
+  </text>
+  <text x="130" y="272" fill="#1D1B18" font-size="72" font-family="Georgia, Times New Roman, serif" font-weight="700">
+    Duo Sun
+  </text>
+  <text x="130" y="334" fill="#635D57" font-size="30" font-family="Avenir Next, Segoe UI, Arial, sans-serif">
+    Economics, finance, research, and writing
+  </text>
+
+  <text x="130" y="420" fill="#17324D" font-size="22" font-family="Avenir Next, Segoe UI, Arial, sans-serif">
+    Personal website with background, CV, writing, and contact details.
+  </text>
+
+  <rect x="130" y="464" width="154" height="44" rx="22" fill="#17324D" />
+  <text x="175" y="492" fill="#FFFFFF" font-size="22" font-family="Avenir Next, Segoe UI, Arial, sans-serif">
+    About
+  </text>
+
+  <rect x="298" y="464" width="120" height="44" rx="22" fill="#E8EEF3" stroke="#C5D4E2" />
+  <text x="339" y="492" fill="#17324D" font-size="22" font-family="Avenir Next, Segoe UI, Arial, sans-serif">
+    CV
+  </text>
+
+  <rect x="432" y="464" width="144" height="44" rx="22" fill="#E8EEF3" stroke="#C5D4E2" />
+  <text x="473" y="492" fill="#17324D" font-size="22" font-family="Avenir Next, Segoe UI, Arial, sans-serif">
+    Posts
+  </text>
+
+  <text x="740" y="182" fill="#EAF2F8" font-size="20" font-family="Avenir Next, Segoe UI, Arial, sans-serif" letter-spacing="4">
+    OFFICIAL WEBSITE
+  </text>
+  <text x="740" y="255" fill="#FFFFFF" font-size="42" font-family="Georgia, Times New Roman, serif" font-weight="700">
+    Clear profile.
+  </text>
+  <text x="740" y="308" fill="#FFFFFF" font-size="42" font-family="Georgia, Times New Roman, serif" font-weight="700">
+    Simple structure.
+  </text>
+  <text x="740" y="361" fill="#FFFFFF" font-size="42" font-family="Georgia, Times New Roman, serif" font-weight="700">
+    Static and reliable.
+  </text>
+
+  <rect x="740" y="408" width="164" height="42" rx="21" fill="#FFFFFF" fill-opacity="0.14" stroke="#FFFFFF" stroke-opacity="0.26" />
+  <text x="780" y="434" fill="#FFFFFF" font-size="20" font-family="Avenir Next, Segoe UI, Arial, sans-serif">
+    sunduo.me
+  </text>
+
+  <rect x="922" y="408" width="108" height="42" rx="21" fill="#FFFFFF" fill-opacity="0.14" stroke="#FFFFFF" stroke-opacity="0.26" />
+  <text x="952" y="434" fill="#FFFFFF" font-size="20" font-family="Avenir Next, Segoe UI, Arial, sans-serif">
+    UK
+  </text>
+</svg>

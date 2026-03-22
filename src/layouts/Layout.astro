@@ -6,6 +6,9 @@ interface Props {
   description?: string;
   activePath?: string;
   wide?: boolean;
+  ogType?: 'website' | 'article';
+  ogImage?: string;
+  robots?: string;
 }
 
 const {
@@ -13,9 +16,14 @@ const {
   description = SITE.description,
   activePath = Astro.url.pathname,
   wide = false,
+  ogType = 'website',
+  ogImage = '/og-image-wide.png',
+  robots = 'index,follow',
 } = Astro.props;
 
-const pageTitle = title === SITE.title ? SITE.title : `${title} | ${SITE.name}`;
+const pageTitle = title.includes(SITE.name) ? title : `${title} | ${SITE.name}`;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
+const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url).toString();
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -36,10 +44,31 @@ const isActive = (href: string) =>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
+    <meta name="theme-color" content={SITE.themeColor} />
+    <meta name="color-scheme" content="light" />
+    <meta name="robots" content={robots} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:alt" content={`${SITE.name} website preview`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
     <title>{pageTitle}</title>
   </head>
   <body>
@@ -48,7 +77,7 @@ const isActive = (href: string) =>
         <div class="site-header__inner">
           <a class="brand" href="/">
             <span class="brand__title">{SITE.name}</span>
-            <span class="brand__subtitle">Economics, research, finance, and writing</span>
+            <span class="brand__subtitle">{SITE.tagline}</span>
           </a>
 
           <nav class="nav" aria-label="Main navigation">
@@ -56,6 +85,7 @@ const isActive = (href: string) =>
               <a
                 class:list={['nav__link', isActive(link.href) && 'is-active']}
                 href={link.href}
+                aria-current={isActive(link.href) ? 'page' : undefined}
               >
                 {link.label}
               </a>
@@ -70,8 +100,35 @@ const isActive = (href: string) =>
 
       <footer class="site-footer">
         <div class="site-footer__inner">
-          <p>{SITE.name}</p>
-          <p>Built as a static Astro site for Cloudflare Pages.</p>
+          <div class="footer-brand">
+            <p class="footer-brand__title">{SITE.name}</p>
+            <p class="footer-brand__text">
+              Personal website covering background, CV, writing, and contact details.
+            </p>
+          </div>
+
+          <nav class="footer-nav" aria-label="Footer navigation">
+            {navLinks.map((link) => (
+              <a class="footer-nav__link" href={link.href}>
+                {link.label}
+              </a>
+            ))}
+          </nav>
+
+          <div class="footer-contact">
+            <a class="footer-contact__link" href={`mailto:${SITE.email}`}>
+              {SITE.email}
+            </a>
+            <a
+              class="footer-contact__link"
+              href={SITE.githubUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {SITE.githubLabel}
+            </a>
+            <p class="footer-contact__note">Built as a static Astro site for Cloudflare Pages.</p>
+          </div>
         </div>
       </footer>
     </div>
@@ -241,11 +298,47 @@ const isActive = (href: string) =>
 
   .site-footer__inner {
     border-top: 1px solid rgba(23, 50, 77, 0.08);
+    align-items: flex-start;
   }
 
   .site-footer__inner p {
     margin: 0;
     font-size: 0.95rem;
+  }
+
+  .footer-brand,
+  .footer-contact {
+    display: grid;
+    gap: 0.5rem;
+    max-width: 22rem;
+  }
+
+  .footer-brand__title {
+    color: var(--ink);
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+  }
+
+  .footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem 1rem;
+    justify-content: center;
+  }
+
+  .footer-nav__link,
+  .footer-contact__link {
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .footer-contact {
+    justify-items: flex-start;
+  }
+
+  .footer-contact__note {
+    color: var(--muted);
+    font-size: 0.9rem;
   }
 
   .eyebrow {
@@ -505,6 +598,76 @@ const isActive = (href: string) =>
     gap: 1rem;
   }
 
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .post-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-height: 18rem;
+  }
+
+  .post-card--featured {
+    min-height: 24rem;
+    padding: 2rem;
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(244, 239, 231, 0.92)),
+      var(--panel);
+  }
+
+  .post-card__title {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    line-height: 1.05;
+    margin-bottom: 0.75rem;
+  }
+
+  .post-card__summary {
+    margin: 0;
+    font-size: 1.04rem;
+    line-height: 1.8;
+  }
+
+  .post-card__footer {
+    margin-top: auto;
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .post-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    align-items: center;
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .tag-row li {
+    margin: 0;
+  }
+
+  .tag-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.42rem 0.78rem;
+    border-radius: 999px;
+    border: 1px solid rgba(23, 50, 77, 0.1);
+    background: rgba(23, 50, 77, 0.05);
+    color: var(--accent);
+    font-size: 0.86rem;
+    line-height: 1;
+  }
+
   .meta-link {
     display: inline-flex;
     margin-bottom: 1rem;
@@ -545,10 +708,15 @@ const isActive = (href: string) =>
       align-items: flex-start;
     }
 
+    .nav {
+      width: 100%;
+    }
+
     .hero,
     .split,
     .grid--2,
-    .grid--3 {
+    .grid--3,
+    .posts-grid {
       grid-template-columns: 1fr;
     }
 
@@ -559,6 +727,10 @@ const isActive = (href: string) =>
     .surface,
     .prose {
       padding: 1.3rem;
+    }
+
+    .footer-nav {
+      justify-content: flex-start;
     }
   }
 </style>

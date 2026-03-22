@@ -1,18 +1,15 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { posts } from '../../data/posts';
 import Layout from '../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('posts');
-
   return posts.map((post) => ({
-    params: { slug: post.id },
+    params: { slug: post.slug },
     props: { post },
   }));
 }
 
 const { post } = Astro.props;
-const { Content } = await render(post);
 
 const formatDate = (date: Date) =>
   date.toLocaleDateString('en-GB', {
@@ -23,19 +20,45 @@ const formatDate = (date: Date) =>
 ---
 
 <Layout
-  title={post.data.title}
-  description={post.data.description}
+  title={post.title}
+  description={post.summary}
   activePath="/posts"
+  ogType="article"
 >
   <section class="page-header">
     <a class="meta-link" href="/posts">← Back to posts</a>
     <p class="eyebrow">Post</p>
-    <h1 class="page-title page-title--compact">{post.data.title}</h1>
-    <p class="meta">{formatDate(post.data.date)}</p>
-    <p class="page-lead">{post.data.description}</p>
+    <h1 class="page-title page-title--compact">{post.title}</h1>
+    <div class="post-card__meta">
+      <p class="meta">{formatDate(new Date(post.date))}</p>
+      <p class="meta">{post.readingTime}</p>
+    </div>
+    <p class="page-lead">{post.summary}</p>
+
+    <ul class="tag-row" aria-label={`${post.title} tags`}>
+      {post.tags.map((tag) => (
+        <li>
+          <span class="tag-pill">{tag}</span>
+        </li>
+      ))}
+    </ul>
   </section>
 
   <article class="surface prose">
-    <Content />
+    {post.sections.map((section) => (
+      <section>
+        {section.heading && <h2>{section.heading}</h2>}
+        {section.paragraphs.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+        {section.bullets && (
+          <ul>
+            {section.bullets.map((bullet) => (
+              <li>{bullet}</li>
+            ))}
+          </ul>
+        )}
+      </section>
+    ))}
   </article>
 </Layout>
