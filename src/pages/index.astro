@@ -1,57 +1,141 @@
 ---
-const name = "Duo Sun";
+import { SITE } from '../consts';
+import Layout from '../layouts/Layout.astro';
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{name}</title>
-    <style>
-      body {
-        margin: 0;
-        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-        background: #f7f7f5;
-        color: #111;
-        line-height: 1.6;
-      }
+<Layout title={SITE.title} description={SITE.description} activePath="/" wide>
+  <section class="hero">
+    <div class="surface">
+      <p class="eyebrow">Personal Website</p>
+      <h1 class="page-title">Duo Sun</h1>
+      <p class="page-lead">
+        Economics student in the UK with a growing body of work around finance,
+        technology, research, and careful long-form thinking.
+      </p>
 
-      .container {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 40px 20px;
-      }
+      <div class="button-row">
+        <a class="button" href="/cv">View CV</a>
+        <a class="button button--secondary" href="/posts">Read Posts</a>
+        <a class="button button--secondary" href="/contact">Get in Touch</a>
+      </div>
+    </div>
 
-      nav a {
-        margin-right: 16px;
-      }
-
-      h1 {
-        font-size: 48px;
-        margin-bottom: 10px;
-      }
-
-      p {
-        color: #555;
-        font-size: 18px;
-      }
-    </style>
-  </head>
-
-  <body>
-    <div class="container">
-      <nav>
-        <a href="/">Home</a>
-        <a href="/about">About</a>
-        <a href="/posts">Posts</a>
-        <a href="/contact">Contact</a>
-      </nav>
-
-      <h1>Hi, I'm Duo Sun</h1>
+    <aside class="surface surface--accent">
+      <p class="eyebrow">Current Focus</p>
+      <h2 class="card-title">Building a solid public profile</h2>
       <p>
-        Economics student in the UK. I write about finance, technology, and
-        personal thinking.
+        This site is the central place for my background, writing, and contact
+        details. The goal is clarity: one clean home for who I am, what I work
+        on, and where to reach me.
+      </p>
+
+      <ul class="stat-list">
+        <li class="stat">
+          <strong>Base</strong>
+          UK
+        </li>
+        <li class="stat">
+          <strong>Focus</strong>
+          Finance and research
+        </li>
+        <li class="stat">
+          <strong>Format</strong>
+          Static Astro site
+        </li>
+      </ul>
+    </aside>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Overview</p>
+        <h2 class="card-title">What this website is for</h2>
+      </div>
+      <p>
+        A stable personal website should introduce your work quickly, point
+        people to the right page, and feel credible without becoming complex.
       </p>
     </div>
-  </body>
-</html>
+
+    <div class="grid grid--3">
+      <article class="surface">
+        <p class="eyebrow">Background</p>
+        <h3 class="card-title">About</h3>
+        <p>
+          Learn about my academic path, interests, and the themes that shape my
+          work.
+        </p>
+      </article>
+
+      <article class="surface">
+        <p class="eyebrow">Profile</p>
+        <h3 class="card-title">CV</h3>
+        <p>
+          A structured summary of education, experience, practical skills, and
+          professional direction.
+        </p>
+      </article>
+
+      <article class="surface">
+        <p class="eyebrow">Writing</p>
+        <h3 class="card-title">Posts</h3>
+        <p>
+          Notes, essays, and short pieces that document what I am learning and
+          thinking about.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Explore</p>
+        <h2 class="card-title">Start here</h2>
+      </div>
+      <p>
+        Each page has a distinct purpose, but they now share one visual system
+        and one clear navigation structure.
+      </p>
+    </div>
+
+    <div class="grid grid--2">
+      <a class="surface link-card" href="/about">
+        <p class="eyebrow">About</p>
+        <h3 class="card-title">Personal background and interests</h3>
+        <p>
+          A more complete introduction to who I am, how I work, and what I care
+          about.
+        </p>
+      </a>
+
+      <a class="surface link-card" href="/cv">
+        <p class="eyebrow">CV</p>
+        <h3 class="card-title">Formal experience and education</h3>
+        <p>
+          The concise professional view for collaborators, recruiters, and
+          academic contacts.
+        </p>
+      </a>
+
+      <a class="surface link-card" href="/posts">
+        <p class="eyebrow">Posts</p>
+        <h3 class="card-title">Writing and public notes</h3>
+        <p>
+          Short static posts published from local Markdown files and built into
+          the site.
+        </p>
+      </a>
+
+      <a class="surface link-card" href="/contact">
+        <p class="eyebrow">Contact</p>
+        <h3 class="card-title">Email and online presence</h3>
+        <p>
+          The fastest ways to reach me for opportunities, conversations, or
+          project-related questions.
+        </p>
+      </a>
+    </div>
+  </section>
+</Layout>

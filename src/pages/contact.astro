@@ -1,25 +1,64 @@
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contact</title>
-    <style>
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 40px 20px;
-        background: #f7f7f5;
-        color: #111;
-        line-height: 1.7;
-      }
-      a { color: inherit; }
-    </style>
-  </head>
-  <body>
-    <h1>Contact</h1>
-    <p>Email: sunduowork@outlook.com</p>
-    <p>GitHub: <a href="https://github.com/suendok">github.com/suendok</a></p>
-    <p><a href="/">Back to Home</a></p>
-  </body>
-</html>
+---
+import { SITE } from '../consts';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Contact"
+  description="Contact details for Duo Sun."
+  activePath="/contact"
+>
+  <section class="page-header">
+    <p class="eyebrow">Contact</p>
+    <h1 class="page-title page-title--compact">The simplest way to reach me</h1>
+    <p class="page-lead">
+      If you would like to discuss opportunities, academic interests, or
+      writing-related work, email is the best place to start.
+    </p>
+  </section>
+
+  <section class="grid grid--2">
+    <article class="surface">
+      <p class="eyebrow">Email</p>
+      <h2 class="card-title">{SITE.email}</h2>
+      <p>
+        Best for direct contact, introductions, and conversations related to
+        academic or professional opportunities.
+      </p>
+      <div class="button-row">
+        <a class="button" href={`mailto:${SITE.email}`}>Send Email</a>
+      </div>
+    </article>
+
+    <article class="surface">
+      <p class="eyebrow">Online</p>
+      <h2 class="card-title">GitHub</h2>
+      <p>
+        A public record of code, experiments, and the technical side of my
+        work.
+      </p>
+      <div class="button-row">
+        <a
+          class="button button--secondary"
+          href={SITE.githubUrl}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Visit {SITE.githubLabel}
+        </a>
+      </div>
+    </article>
+  </section>
+
+  <section class="section">
+    <article class="surface">
+      <p class="eyebrow">Notes</p>
+      <h2 class="card-title">What to expect</h2>
+      <p>
+        This site is intentionally simple and static. There is no contact form
+        or backend. All contact flows through email and outward links, which
+        keeps the site lightweight and reliable on Cloudflare Pages.
+      </p>
+    </article>
+  </section>
+</Layout>

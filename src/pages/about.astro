@@ -1,31 +1,86 @@
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About</title>
-    <style>
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 40px 20px;
-        background: #f7f7f5;
-        color: #111;
-        line-height: 1.7;
-      }
+---
+import Layout from '../layouts/Layout.astro';
+---
 
-      a {
-        color: inherit;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>About Me</h1>
-    <p>I am Duo Sun, an economics student in the UK.</p>
-    <p>
-      My interests include finance, technology, research, and long-form writing.
-      This website is my space to introduce myself, organise my work, and share ideas.
+<Layout
+  title="About"
+  description="Background and interests of Duo Sun."
+  activePath="/about"
+>
+  <section class="page-header">
+    <p class="eyebrow">About</p>
+    <h1 class="page-title page-title--compact">A clearer introduction</h1>
+    <p class="page-lead">
+      I am an economics student in the UK with strong interests in finance,
+      technology, research, and writing. This website is my public base for
+      presenting that work with more structure.
     </p>
-    <p><a href="/">Back to Home</a></p>
-  </body>
-</html>
+  </section>
+
+  <section class="split">
+    <div class="stack">
+      <article class="surface">
+        <p class="eyebrow">Background</p>
+        <h2 class="card-title">Academic and intellectual direction</h2>
+        <p>
+          My studies in economics have given me a practical framework for
+          thinking about markets, institutions, incentives, and the decisions
+          that shape real-world outcomes.
+        </p>
+        <p>
+          Alongside that, I am consistently drawn to technology and research:
+          how tools are built, how ideas are tested, and how complex subjects
+          can be explained clearly.
+        </p>
+      </article>
+
+      <article class="surface">
+        <p class="eyebrow">Interests</p>
+        <h2 class="card-title">Themes I keep returning to</h2>
+        <p>
+          I care most about the overlap between finance, data, technology, and
+          communication. That usually means reading deeply, organising
+          information well, and turning loose ideas into something more useful
+          and presentable.
+        </p>
+        <ul class="detail-list">
+          <li>Economics and financial reasoning</li>
+          <li>Research process and evidence-based thinking</li>
+          <li>Technology as a tool for clearer work</li>
+          <li>Writing that balances precision with readability</li>
+        </ul>
+      </article>
+    </div>
+
+    <aside class="stack">
+      <section class="surface">
+        <p class="eyebrow">Snapshot</p>
+        <h2 class="card-title">Quick facts</h2>
+        <dl class="fact-list">
+          <div>
+            <dt>Based in</dt>
+            <dd>United Kingdom</dd>
+          </div>
+          <div>
+            <dt>Field</dt>
+            <dd>Economics</dd>
+          </div>
+          <div>
+            <dt>Main interests</dt>
+            <dd>Finance, research, technology, writing</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="surface">
+        <p class="eyebrow">Approach</p>
+        <h2 class="card-title">How I want this site to feel</h2>
+        <p>
+          Calm, direct, and useful. Rather than turning the site into a complex
+          product, I want it to stay lightweight and dependable as a personal
+          profile.
+        </p>
+      </section>
+    </aside>
+  </section>
+</Layout>

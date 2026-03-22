@@ -1,74 +1,93 @@
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Duo Sun - CV</title>
-    <style>
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 40px 20px;
-        background: #f7f7f5;
-        color: #111;
-        line-height: 1.6;
-      }
+---
+import { SITE } from '../consts';
+import Layout from '../layouts/Layout.astro';
+---
 
-      h1, h2 {
-        margin-top: 30px;
-      }
+<Layout
+  title="CV"
+  description="CV and professional summary of Duo Sun."
+  activePath="/cv"
+>
+  <section class="page-header">
+    <p class="eyebrow">Curriculum Vitae</p>
+    <h1 class="page-title page-title--compact">Education, experience, and core skills</h1>
+    <p class="page-lead">
+      A concise professional summary designed for recruiters, collaborators, and
+      academic contacts who want a quick picture of my background.
+    </p>
 
-      .section {
-        margin-bottom: 30px;
-      }
+    <div class="button-row">
+      <a class="button" href="/contact">Contact</a>
+      <a class="button button--secondary" href="mailto:sunduowork@outlook.com">Email</a>
+    </div>
+  </section>
 
-      .item {
-        margin-bottom: 15px;
-      }
+  <section class="split">
+    <div class="stack">
+      <article class="surface">
+        <p class="eyebrow">Experience</p>
+        <h2 class="card-title">Professional work</h2>
 
-      .title {
-        font-weight: bold;
-      }
+        <div class="timeline">
+          <div class="timeline__item">
+            <h3>Intern, CITIC Securities</h3>
+            <p class="meta">Finance-related materials, research support, and analytical work</p>
+            <ul class="detail-list">
+              <li>Supported finance-oriented research and background preparation.</li>
+              <li>Worked with structured materials, summaries, and internal analysis tasks.</li>
+              <li>Built familiarity with professional expectations in a finance environment.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
 
-      .meta {
-        color: #666;
-        font-size: 14px;
-      }
+      <article class="surface">
+        <p class="eyebrow">Education</p>
+        <h2 class="card-title">Academic profile</h2>
 
-      a { color: inherit; }
-    </style>
-  </head>
-  <body>
-    <h1>Duo Sun</h1>
-    <p>Economics Student | Interested in Finance, Technology, Research</p>
-
-    <div class="section">
-      <h2>Education</h2>
-      <div class="item">
-        <div class="title">University of Manchester</div>
-        <div class="meta">BSc Economics</div>
-      </div>
+        <div class="timeline">
+          <div class="timeline__item">
+            <h3>University of Manchester</h3>
+            <p class="meta">BSc Economics</p>
+            <p>
+              Formal training in economics, analytical reasoning, and the study
+              of markets, institutions, and decision-making.
+            </p>
+          </div>
+        </div>
+      </article>
     </div>
 
-    <div class="section">
-      <h2>Experience</h2>
-      <div class="item">
-        <div class="title">CITIC Securities</div>
-        <div class="meta">Intern</div>
-        <p>Worked on finance-related materials and research support.</p>
-      </div>
-    </div>
+    <aside class="stack">
+      <section class="surface">
+        <p class="eyebrow">Profile</p>
+        <h2 class="card-title">Summary</h2>
+        <p>
+          Economics student with interests spanning finance, technology,
+          research, and communication. Comfortable moving between structured
+          analysis and clear written presentation.
+        </p>
+      </section>
 
-    <div class="section">
-      <h2>Skills</h2>
-      <p>Excel, SPSS, Research, Data Analysis</p>
-    </div>
+      <section class="surface">
+        <p class="eyebrow">Skills</p>
+        <h2 class="card-title">Core tools</h2>
+        <ul class="chip-list">
+          <li class="chip">Excel</li>
+          <li class="chip">SPSS</li>
+          <li class="chip">Research</li>
+          <li class="chip">Data analysis</li>
+          <li class="chip">Writing</li>
+          <li class="chip">Presentation</li>
+        </ul>
+      </section>
 
-    <div class="section">
-      <h2>Contact</h2>
-      <p>Email: sunduopersonal@outlook.com</p>
-    </div>
-
-    <p><a href="/">Back to Home</a></p>
-  </body>
-</html>
+      <section class="surface">
+        <p class="eyebrow">Contact</p>
+        <h2 class="card-title">Reach me</h2>
+        <p>{SITE.email}</p>
+        <p>{SITE.location}</p>
+      </section>
+    </aside>
+  </section>
+</Layout>

@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
@@ -12,39 +13,29 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+
+const formatDate = (date: Date) =>
+  date.toLocaleDateString('en-GB', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{post.data.title}</title>
-    <meta name="description" content={post.data.description} />
-    <style>
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 40px 20px;
-        background: #f7f7f5;
-        color: #111;
-        line-height: 1.8;
-      }
+<Layout
+  title={post.data.title}
+  description={post.data.description}
+  activePath="/posts"
+>
+  <section class="page-header">
+    <a class="meta-link" href="/posts">← Back to posts</a>
+    <p class="eyebrow">Post</p>
+    <h1 class="page-title page-title--compact">{post.data.title}</h1>
+    <p class="meta">{formatDate(post.data.date)}</p>
+    <p class="page-lead">{post.data.description}</p>
+  </section>
 
-      a {
-        color: inherit;
-      }
-
-      .meta {
-        color: #666;
-        margin-bottom: 24px;
-      }
-    </style>
-  </head>
-  <body>
-    <p><a href="/posts">← Back to Posts</a></p>
-    <h1>{post.data.title}</h1>
-    <div class="meta">{post.data.date.toDateString()}</div>
+  <article class="surface prose">
     <Content />
-  </body>
-</html>
+  </article>
+</Layout>
