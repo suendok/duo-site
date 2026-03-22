@@ -1,0 +1,50 @@
+---
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{post.data.title}</title>
+    <meta name="description" content={post.data.description} />
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        background: #f7f7f5;
+        color: #111;
+        line-height: 1.8;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .meta {
+        color: #666;
+        margin-bottom: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <p><a href="/posts">← Back to Posts</a></p>
+    <h1>{post.data.title}</h1>
+    <div class="meta">{post.data.date.toDateString()}</div>
+    <Content />
+  </body>
+</html>
