@@ -1,4 +1,5 @@
 ---
+import MaintenanceScreen from '../components/MaintenanceScreen.astro';
 import { SITE } from '../consts';
 
 interface Props {
@@ -24,6 +25,10 @@ const {
 const pageTitle = title.includes(SITE.name) ? title : `${title} | ${SITE.name}`;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
 const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url).toString();
+const isMaintenanceMode = SITE.maintenance.enabled;
+const resolvedTitle = isMaintenanceMode ? `${SITE.name} | Maintenance` : pageTitle;
+const resolvedDescription = isMaintenanceMode ? SITE.maintenance.message : description;
+const resolvedRobots = isMaintenanceMode ? 'noindex,nofollow' : robots;
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -50,88 +55,92 @@ const isActive = (href: string) =>
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="canonical" href={canonicalUrl} />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    {!isMaintenanceMode && <link rel="sitemap" href="/sitemap-index.xml" />}
     <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={description} />
+    <meta name="description" content={resolvedDescription} />
     <meta name="theme-color" content={SITE.themeColor} />
     <meta name="color-scheme" content="light" />
-    <meta name="robots" content={robots} />
+    <meta name="robots" content={resolvedRobots} />
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:type" content={ogType} />
-    <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={description} />
+    <meta property="og:title" content={resolvedTitle} />
+    <meta property="og:description" content={resolvedDescription} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:alt" content={`${SITE.name} website preview`} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={pageTitle} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:title" content={resolvedTitle} />
+    <meta name="twitter:description" content={resolvedDescription} />
     <meta name="twitter:image" content={ogImageUrl} />
-    <title>{pageTitle}</title>
+    <title>{resolvedTitle}</title>
   </head>
   <body>
-    <div class="site-shell">
-      <header class="site-header">
-        <div class="site-header__inner">
-          <a class="brand" href="/">
-            <span class="brand__title">{SITE.name}</span>
-            <span class="brand__subtitle">{SITE.tagline}</span>
-          </a>
+    {isMaintenanceMode ? (
+      <MaintenanceScreen />
+    ) : (
+      <div class="site-shell">
+        <header class="site-header">
+          <div class="site-header__inner">
+            <a class="brand" href="/">
+              <span class="brand__title">{SITE.name}</span>
+              <span class="brand__subtitle">{SITE.tagline}</span>
+            </a>
 
-          <nav class="nav" aria-label="Main navigation">
-            {navLinks.map((link) => (
+            <nav class="nav" aria-label="Main navigation">
+              {navLinks.map((link) => (
+                <a
+                  class:list={['nav__link', isActive(link.href) && 'is-active']}
+                  href={link.href}
+                  aria-current={isActive(link.href) ? 'page' : undefined}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+          </div>
+        </header>
+
+        <main class:list={['site-main', wide && 'site-main--wide']}>
+          <slot />
+        </main>
+
+        <footer class="site-footer">
+          <div class="site-footer__inner">
+            <div class="footer-brand">
+              <p class="footer-brand__title">{SITE.name}</p>
+              <p class="footer-brand__text">
+                Personal website covering background, CV, writing, and contact details.
+              </p>
+            </div>
+
+            <nav class="footer-nav" aria-label="Footer navigation">
+              {navLinks.map((link) => (
+                <a class="footer-nav__link" href={link.href}>
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+
+            <div class="footer-contact">
+              <a class="footer-contact__link" href={`mailto:${SITE.email}`}>
+                {SITE.email}
+              </a>
               <a
-                class:list={['nav__link', isActive(link.href) && 'is-active']}
-                href={link.href}
-                aria-current={isActive(link.href) ? 'page' : undefined}
+                class="footer-contact__link"
+                href={SITE.githubUrl}
+                target="_blank"
+                rel="noreferrer"
               >
-                {link.label}
+                {SITE.githubLabel}
               </a>
-            ))}
-          </nav>
-        </div>
-      </header>
-
-      <main class:list={['site-main', wide && 'site-main--wide']}>
-        <slot />
-      </main>
-
-      <footer class="site-footer">
-        <div class="site-footer__inner">
-          <div class="footer-brand">
-            <p class="footer-brand__title">{SITE.name}</p>
-            <p class="footer-brand__text">
-              Personal website covering background, CV, writing, and contact details.
-            </p>
+              <p class="footer-contact__note">Built as a static Astro site for Cloudflare Pages.</p>
+            </div>
           </div>
-
-          <nav class="footer-nav" aria-label="Footer navigation">
-            {navLinks.map((link) => (
-              <a class="footer-nav__link" href={link.href}>
-                {link.label}
-              </a>
-            ))}
-          </nav>
-
-          <div class="footer-contact">
-            <a class="footer-contact__link" href={`mailto:${SITE.email}`}>
-              {SITE.email}
-            </a>
-            <a
-              class="footer-contact__link"
-              href={SITE.githubUrl}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {SITE.githubLabel}
-            </a>
-            <p class="footer-contact__note">Built as a static Astro site for Cloudflare Pages.</p>
-          </div>
-        </div>
-      </footer>
-    </div>
+        </footer>
+      </div>
+    )}
   </body>
 </html>
 

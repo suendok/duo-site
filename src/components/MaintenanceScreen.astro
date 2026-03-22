@@ -1,0 +1,88 @@
+---
+import { SITE } from '../consts';
+---
+
+<div class="maintenance-page">
+  <div class="maintenance-card">
+    <p class="maintenance-eyebrow">Maintenance Mode</p>
+    <h1 class="maintenance-title">{SITE.maintenance.title}</h1>
+    <p class="maintenance-message">{SITE.maintenance.message}</p>
+    <p class="maintenance-note">{SITE.maintenance.note}</p>
+    <p class="maintenance-contact">
+      For enquiries, email
+      <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+      or call
+      <a href={SITE.phoneHref}>{SITE.phoneDisplay}</a>.
+    </p>
+  </div>
+</div>
+
+<style>
+  .maintenance-page {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 2rem 1.25rem;
+  }
+
+  .maintenance-card {
+    width: min(100%, 780px);
+    padding: 2rem;
+    border: 1px solid rgba(23, 50, 77, 0.12);
+    border-radius: 32px;
+    background:
+      radial-gradient(circle at top right, rgba(217, 229, 239, 0.55), transparent 28%),
+      linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(247, 242, 235, 0.95));
+    box-shadow: 0 18px 60px rgba(23, 38, 54, 0.08);
+    text-align: center;
+  }
+
+  .maintenance-eyebrow {
+    display: inline-flex;
+    margin: 0 0 1rem;
+    padding: 0.45rem 0.85rem;
+    border-radius: 999px;
+    background: rgba(23, 50, 77, 0.08);
+    color: #17324d;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.78rem;
+  }
+
+  .maintenance-title {
+    margin: 0 0 1rem;
+    font-family: var(--font-serif);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    line-height: 0.98;
+  }
+
+  .maintenance-message {
+    margin: 0 auto 0.9rem;
+    max-width: 38rem;
+    color: var(--muted);
+    font-size: 1.12rem;
+    line-height: 1.85;
+  }
+
+  .maintenance-note {
+    margin: 0 auto 1.25rem;
+    max-width: 34rem;
+    color: var(--muted);
+  }
+
+  .maintenance-contact {
+    margin: 0;
+    color: var(--ink);
+  }
+
+  .maintenance-contact a {
+    color: var(--accent);
+  }
+
+  @media (max-width: 900px) {
+    .maintenance-card {
+      padding: 1.5rem;
+      border-radius: 26px;
+    }
+  }
+</style>
