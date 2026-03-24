@@ -2,7 +2,7 @@
 // To reopen the site, set `SITE_MAINTENANCE_MODE=false` in Cloudflare Pages
 // and trigger a new deployment.
 const maintenanceFlag = import.meta.env.SITE_MAINTENANCE_MODE;
-const maintenanceEnabled = maintenanceFlag ? maintenanceFlag === 'false' : false;
+const maintenanceEnabled = maintenanceFlag ? maintenanceFlag === 'true' : true;
 
 export const SITE = {
   name: 'Duo Sun',
