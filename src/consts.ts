@@ -1,8 +1,8 @@
-// Maintenance mode is on by default right now.
-// To reopen the site, set `SITE_MAINTENANCE_MODE=false` in Cloudflare Pages
+// Maintenance mode is off by default.
+// To close the site again, set `SITE_MAINTENANCE_MODE=true` in Cloudflare Pages
 // and trigger a new deployment.
 const maintenanceFlag = import.meta.env.SITE_MAINTENANCE_MODE;
-const maintenanceEnabled = maintenanceFlag ? maintenanceFlag === 'true' : true;
+const maintenanceEnabled = maintenanceFlag === 'true';
 
 export const SITE = {
   name: 'Duo Sun',
